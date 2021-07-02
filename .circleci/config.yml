@@ -1,37 +1,18 @@
 version: 2
 jobs:
-  # This checks out the code, installs dependencies, and persists node_modules
   build:
     docker:
-      - image: circleci/node:lts
+    - image: elixir:1.9-alpine
     steps:
-      - checkout
-      - run: echo "this is the build job"
-  build_and_push_prd_image: 
-    docker:
-      - image: circleci/node:lts
-    steps:
-      - checkout
-      - run: echo "this is the build_and_push_prd_image job"
-
+    - checkout
+    - run: echo docker version
+    - run:
+        name: update docker
+        command: |
+          docker update
+    - run: echo docker version
 workflows:
   version: 2
-  auto refresh:
-#     triggers:
-#       - schedule:
-#           cron: "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"
-#           filters:
-#             branches:
-#               only:
-#                 - /.*/
+  build:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: /.*/
-      - build_and_push_prd_image:
-          requires:
-            - build
-          filters:
-            branches:
-              only: cron
+    - build
