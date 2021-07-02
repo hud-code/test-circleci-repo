@@ -7,7 +7,7 @@ jobs:
     - checkout
     - run: 
         command: |
-          docker version
+          cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/"
     - run:
         name: update docker
         command: |
