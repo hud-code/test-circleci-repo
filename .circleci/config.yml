@@ -14,7 +14,7 @@ parameters:
 jobs:
   build:
     docker:
-      - image: orbi/node
+      - image: orbi/default
     resource_class: medium+
     steps:
       - checkout
