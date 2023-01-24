@@ -10,3 +10,7 @@ services:
     volumes:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
+  test_image:
+    image: job_runner:test
+    depends_on:
+      - dynamodb-local
