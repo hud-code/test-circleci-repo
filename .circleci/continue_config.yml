@@ -18,6 +18,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
+      - run: sudo netstat -ano -p tcp
       - run:
           name: 'build test container'
           command: docker build . -t job_runner:test
