@@ -5,6 +5,11 @@ defaults: &defaults
 orbs:
   aws-cli: circleci/aws-cli@3.1.4
 
+parameters:
+  author:
+    type: string
+    default: ""
+
 jobs:
   test:
     machine:
@@ -24,9 +29,10 @@ jobs:
           command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') job_runner:test
 
 workflows:
-  version: 2
   test:
     jobs:
       - test:
           context:
             - PagerDuty
+
+# VS Code Extension Version: 1.5.1
