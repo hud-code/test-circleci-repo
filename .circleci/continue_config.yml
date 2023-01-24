@@ -18,6 +18,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
+      - run: sudo apt-get install net-tools
       - run: sudo netstat -ano -p tcp
       - run:
           name: 'build test container'
