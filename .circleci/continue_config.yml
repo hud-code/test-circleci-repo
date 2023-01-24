@@ -18,8 +18,6 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
-      - run: sudo apt-get install net-tools
-      - run: sudo netstat -ano -p tcp
       - run:
           name: 'build test container'
           command: docker build . -t my-img
@@ -28,13 +26,11 @@ jobs:
           command: docker-compose up -d
       - run:
           name: "run tests"
-          command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') my-img /curl-from-container.sh
+          command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') my-img
 
 workflows:
   test:
     jobs:
-      - test:
-          context:
-            - PagerDuty
+      - test
 
 # VS Code Extension Version: 1.5.1
