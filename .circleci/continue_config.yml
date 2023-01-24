@@ -1,26 +1,32 @@
 version: 2.1
 
-parameters:
-  author:
-    type: string
-    default: "not_username"
+defaults: &defaults
+
+orbs:
+  aws-cli: circleci/aws-cli@3.1.4
 
 jobs:
-  build:
-    docker:
-      - image: cimg/ruby:2.7.6
+  test:
+    machine:
+      image: "ubuntu-2004:current"
+      docker_layer_caching: true
     steps:
+      - checkout
+      - aws-cli/install
       - run:
-          name: "Install ruby"
-          command: gem install bundler  && bundle install  
+          name: 'build test container'
+          command: docker build . -t job_runner:test
+      - run:
+          name: "start docker-compose"
+          command: docker-compose up -d
+      - run:
+          name: "run tests"
+          command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') job_runner:test
 
 workflows:
-  continue_workflow:
-    when: 
-      and:
-        - not: 
-            equal: [ "rbi-bot", << pipeline.parameters.author >> ]
+  version: 2
+  test:
     jobs:
-     - build
-
-# VS Code Extension Version: 1.5.1
+      - test:
+          context:
+            - PagerDuty
