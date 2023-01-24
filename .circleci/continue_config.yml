@@ -22,13 +22,13 @@ jobs:
       - run: sudo netstat -ano -p tcp
       - run:
           name: 'build test container'
-          command: docker build . -t job_runner:test
+          command: docker build . -t my-img
       - run:
           name: "start docker-compose"
           command: docker-compose up -d
       - run:
           name: "run tests"
-          command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') job_runner:test
+          command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') my-img /curl-from-container.sh
 
 workflows:
   test:
