@@ -12,21 +12,24 @@ parameters:
 
 jobs:
   test:
-    machine:
-      image: "ubuntu-2004:current"
+    docker:
+      - image: cimg/ruby:2.7.6
       docker_layer_caching: true
     steps:
       - checkout
       - aws-cli/install
       - run:
           name: 'build test container'
-          command: docker build . -t my-img
-      - run:
-          name: "start docker-compose"
-          command: docker-compose up -d
-      - run:
-          name: "run tests"
-          command: docker run -t --network=$(docker network ls | grep default | awk '{print $2}') my-img
+          command: |
+            gem list bundler ; 
+            echo "######################" ;
+            gem install bundler:2.0.0.pre.3 --default ;
+            echo "######################" ;
+            gem list bundler ;
+            echo "######################" ;
+            bundle -v ;
+            echo "######################" ;
+            bundle install --path .bundle ;
 
 workflows:
   test:
