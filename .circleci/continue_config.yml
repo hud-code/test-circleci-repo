@@ -18,16 +18,14 @@ jobs:
       - checkout
       - aws-cli/install
       - run:
-          name: 'install old bundler'
+          name: 'test bundlers'
           command: |
             gem list bundler ; 
             echo "######################" ;
             gem install bundler:2.0.0.pre.3 --default ;
             echo "######################" ;
-
-      - run: 
-          name: 'new bundler installed?'
-          command: |
+            bundle _2.0.0.pre.3_ install ;
+            echo "######################" ;
             gem list bundler ;
             echo "######################" ;
             bundle -v ;
