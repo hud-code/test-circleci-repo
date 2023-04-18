@@ -16,6 +16,8 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
+      - run: yarn version
+      - run: curl -v
 
 workflows:
   test:
