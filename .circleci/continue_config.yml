@@ -18,10 +18,18 @@ jobs:
       - checkout
       - run: yarn version
       - run: curl -v
+  build:
+    docker:
+      - image: cimg/node:19.9.0
+    steps:
+      - checkout
+      - run: node --version
+      - run: yarn version
 
 workflows:
   test:
     jobs:
       - test
+      - build
 
 # VS Code Extension Version: 1.5.1
