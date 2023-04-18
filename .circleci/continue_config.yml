@@ -16,19 +16,19 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run: sudo apt install curl
+      - run: npm install curl --global
       - run: curl --version
-  build:
-    docker:
-      - image: cimg/node:19.9.0
-    steps:
-      - checkout
+  # build:
+  #   docker:
+  #     - image: cimg/node:19.9.0
+  #   steps:
+  #     - checkout
 
 
 workflows:
   test:
     jobs:
       - test
-      - build
+      # - build
 
 # VS Code Extension Version: 1.5.1
