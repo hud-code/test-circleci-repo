@@ -18,8 +18,8 @@ jobs:
       - checkout
       - run: 
           command: |
-            apt-get -y update
-            apt-get -y install curl
+            npm update
+            npm install curl
             curl --version
   # build:
   #   docker:
