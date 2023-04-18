@@ -16,8 +16,8 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run: npm install curl
-      - run: npm curl --version
+      - run: sudo npm install curl
+      - run: curl --version
   build:
     docker:
       - image: cimg/node:19.9.0
