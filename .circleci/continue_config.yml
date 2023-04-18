@@ -16,7 +16,7 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run: sudo npm install curl
+      - run: sudo apt install curl
       - run: curl --version
   build:
     docker:
