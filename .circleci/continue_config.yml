@@ -21,11 +21,16 @@ jobs:
             npm update
             npm install curl
             curl --version
-  # build:
-  #   docker:
-  #     - image: cimg/node:19.9.0
-  #   steps:
-  #     - checkout
+  build:
+    docker:
+      - image: cimg/node:19.9.0
+    steps:
+      - checkout
+      - run: 
+          command: |
+            apt-get update
+            apt-get install curl
+            curl --version
 
 
 workflows:
