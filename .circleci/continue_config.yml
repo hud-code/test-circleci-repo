@@ -37,6 +37,6 @@ workflows:
   test:
     jobs:
       - test
-      # - build
+      - build
 
 # VS Code Extension Version: 1.5.1
