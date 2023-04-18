@@ -16,6 +16,7 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
+      - run: npm init
       - run: yarn version
       - run: curl -v
   build:
@@ -24,6 +25,7 @@ jobs:
     steps:
       - checkout
       - run: node --version
+      - run: npm init
       - run: yarn version
 
 workflows:
