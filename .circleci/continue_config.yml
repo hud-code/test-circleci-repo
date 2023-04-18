@@ -16,18 +16,14 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run: npm install yarn
-      - run: yarn version
-      - run: yarn install curl
+      - run: npm install curl
       - run: curl -v
   build:
     docker:
       - image: cimg/node:19.9.0
     steps:
       - checkout
-      - run: node --version
-      - run: npm install yarn
-      - run: yarn version
+
 
 workflows:
   test:
