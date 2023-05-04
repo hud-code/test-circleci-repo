@@ -37,7 +37,9 @@ jobs:
 workflows:
   test:
     jobs:
+      - hold:
+          type: approval
       - test
       - build
 
-# VS Code Extension Version: 1.5.1
+# VS Code Extensi son Version: 1.5.1
