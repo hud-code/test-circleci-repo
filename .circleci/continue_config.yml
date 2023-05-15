@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
       - run: echo << pipeline.id >>
-      - run: python3 rerun_failed.py
+      - run: python3 rerun-failed.py
   build:
     docker:
       - image: cimg/node:19.9.0
