@@ -16,7 +16,7 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run: echo {{ pipeline.id }}
+      - run: echo << pipeline.id >>
   build:
     docker:
       - image: cimg/node:19.9.0
