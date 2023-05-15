@@ -24,7 +24,7 @@ jobs:
       - run: 
           command: |
             echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
-            echo $PIPELINE_ID
+            echo PIPELINE_ID
       - run: python3 rerun-failed.py
   build:
     docker:
