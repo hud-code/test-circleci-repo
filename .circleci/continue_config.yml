@@ -17,6 +17,7 @@ jobs:
     executor:
       name: android/android-machine
       resource-class: xlarge
+      tag: 2022.08.1
     steps:
       - checkout
       - run: echo << pipeline.id >>
