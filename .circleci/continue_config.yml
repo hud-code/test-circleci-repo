@@ -23,7 +23,10 @@ jobs:
       - run: echo << pipeline.id >>
       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
       - run: echo $PIPELINE_ID
-      - run: python3 rerun-failed.py
+      - run: python3 fail.py
+      - run: 
+          command: python3 rerun-failed.py
+          when: on_fail
   build:
     docker:
       - image: cimg/node:19.9.0
