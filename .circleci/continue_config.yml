@@ -37,8 +37,6 @@ jobs:
 workflows:
   test:
     jobs:
-      - hold:
-          type: approval
       - test
       - build
 
