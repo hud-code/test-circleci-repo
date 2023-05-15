@@ -16,11 +16,7 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run: 
-          command: |
-            npm update
-            npm install curl
-            curl --version
+      - run: echo {{ pipeline.id }}
   build:
     docker:
       - image: cimg/node:19.9.0
