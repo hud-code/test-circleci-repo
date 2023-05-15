@@ -11,7 +11,7 @@ workflow_id = ""
 pipeline_id = os.environ['PIPELINE_ID']
 
 # import job name
-job_name = os.environ['JOB_NAME']
+job_name = os.environ['CIRCLE_JOB']
 
 # import workflow id
 workflow_id = os.environ['CIRCLE_WORKFLOW_ID']
