@@ -5,6 +5,7 @@ defaults: &defaults
 orbs:
   aws-cli: circleci/aws-cli@3.1.4
   newman: postman/newman@1.0.0
+  android: circleci/android@2.1.2
 
 parameters:
   author:
@@ -13,10 +14,13 @@ parameters:
 
 jobs:
   test:
-    executor: newman/postman-newman-docker
+    executor:
+      name: android/android-machine
+      resource-class: xlarge
     steps:
       - checkout
       - run: echo << pipeline.id >>
+      - run: python3 rerun_failed.py
   build:
     docker:
       - image: cimg/node:19.9.0
