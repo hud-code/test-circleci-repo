@@ -35,7 +35,7 @@ data = res.read()
 pipeline_dict = json.loads(data)
 
 # set number of retries
-retry_limit = 1
+retry_limit = 2
 
 run_num = 0
 
@@ -43,8 +43,6 @@ run_num = 0
 for i in pipeline_dict['items']:
     if i['name'] == job_name:
         run_num += 1
-
-print()
 
 print("{} has run {} times.".format(job_name, run_num))
 
@@ -57,7 +55,7 @@ else:
     for i in pipeline_dict['items']:
         if i['id'] == workflow_id:
 
-            print("Found workflow to retry. ID={}".format(workflow_id))
+            print("Found the workflow to retry. Sending retry request for workflow: {}".format(workflow_id))
 
             payload = "{\"enable_ssh\":false,\"from_failed\":true}"
 
@@ -71,9 +69,11 @@ else:
             res = conn.getresponse()
             data = res.read()
             
+            print("The following workflow has been retried:")
+
             print(data.decode("utf-8"))
 
-            print("Retrying job.")
+            print("Ending.")
             
             break
 
