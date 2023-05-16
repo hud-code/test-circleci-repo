@@ -59,26 +59,27 @@ else:
 
             print("Found workflow to retry. ID={}".format(workflow_id))
 
+            payload = "{\"enable_ssh\":false}"
 
             # payload = {
             #     "from_failed": True,
             #     "jobs": job_id
             # }
 
-            # headers = {
-            #     'content-type': "application/json",
-            #     'Circle-Token': circ_token
-            # }
+            headers = {
+                'content-type': "application/json",
+                'Circle-Token': circ_token
+            }
             
-            # conn.request("POST", "/api/v2/workflow/{}/rerun".format(workflow_id), payload, headers)
+            conn.request("POST", "/api/v2/workflow/{}/rerun".format(workflow_id), payload, headers)
             
-            # res = conn.getresponse()
-            # data = res.read()
+            res = conn.getresponse()
+            data = res.read()
             
-            # print(data.decode("utf-8"))
+            print(data.decode("utf-8"))
 
-            # print("Retrying job.")
+            print("Retrying job.")
             
-            # break
+            break
 
     sys.exit(0)
