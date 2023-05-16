@@ -59,7 +59,7 @@ else:
 
             print("Found workflow to retry. ID={}".format(workflow_id))
 
-            payload = "{\"enable_ssh\":false,\"from_failed\":false}"
+            payload = "{\"enable_ssh\":false,\"from_failed\":true}"
 
             headers = {
                 'content-type': "application/json",
