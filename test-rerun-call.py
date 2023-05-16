@@ -7,7 +7,7 @@ circ_token = os.environ['CIRCLE_TOKEN']
 
 conn = http.client.HTTPSConnection("circleci.com")
 
-payload = "{\"enable_ssh\":false}"
+payload = "{\"enable_ssh\":false,\"from_failed\":true}"
 
 headers = {
     'content-type': "application/json",
