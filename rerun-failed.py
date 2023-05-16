@@ -19,9 +19,12 @@ workflow_id = os.environ['CIRCLE_WORKFLOW_ID']
 # import job id
 job_id = os.environ['CIRCLE_WORKFLOW_JOB_ID']
 
+# import token
+circ_token = os.environ['CIRCLE_TOKEN']
+
 conn = http.client.HTTPSConnection("circleci.com")
 
-headers = { 'authorization': "Circle-Token: $CIRCLE_TOKEN" }
+headers = { 'Circle-Token': circ_token }
 
 conn.request("GET", "/api/v2/pipeline/{}/workflow".format(pipeline_id), headers=headers)
 
@@ -41,6 +44,8 @@ for i in pipeline_dict['items']:
     if i['name'] == job_name:
         run_num += 1
 
+print()
+
 print("{} has run {} times.".format(job_name, run_num))
 
 # if job has run more than limit, don't retry
@@ -58,7 +63,7 @@ else:
 
             headers = {
                 'content-type': "application/json",
-                'authorization': "Circle-Token: $CIRCLE_TOKEN"
+                'Circle-Token': circ_token
             }
             
             conn.request("POST", "/api/v2/workflow/{}/rerun".format(workflow_id), payload, headers)
