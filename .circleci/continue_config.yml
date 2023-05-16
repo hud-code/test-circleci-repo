@@ -25,7 +25,10 @@ jobs:
       - run: echo $PIPELINE_ID
       - run: python3 fail.py
       - run: 
-          command: python3 rerun-failed.py
+          name: Rerun Workflow for Failed tests
+          command: |
+            echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
+            python3 rerun-failed.py
           when: on_fail
   build:
     docker:
