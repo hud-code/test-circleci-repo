@@ -48,33 +48,52 @@ print()
 
 print("{} has run {} times.".format(job_name, run_num))
 
-# if job has run more than limit, don't retry
-if run_num > retry_limit:
-    print("Automatic rerun workflow limit has been reached. Not retrying again.")
-    sys.exit(1)
-else:
-    for i in pipeline_dict['items']:
-        if i['id'] == workflow_id:
+payload = {
+    "from_failed": True # ,
+    # "jobs": job_id
+}
 
-            payload = {
-                "from_failed": True,
-                "jobs": job_id
-            }
+headers = {
+    'content-type': "application/json",
+    'Circle-Token': circ_token
+}
 
-            headers = {
-                'content-type': "application/json",
-                'Circle-Token': circ_token
-            }
-            
-            conn.request("POST", "/api/v2/workflow/{}/rerun".format(workflow_id), payload, headers)
-            
-            res = conn.getresponse()
-            data = res.read()
-            
-            print(data.decode("utf-8"))
+conn.request("POST", "/api/v2/workflow/{}/rerun".format(workflow_id), payload, headers)
 
-            print("Retrying job.")
-            
-            break
+res = conn.getresponse()
+data = res.read()
 
-    sys.exit(0)
+print(data.decode("utf-8"))
+
+print("Retrying job.")
+
+# # if job has run more than limit, don't retry
+# if run_num > retry_limit:
+#     print("Automatic rerun workflow limit has been reached. Not retrying again.")
+#     sys.exit(1)
+# else:
+#     for i in pipeline_dict['items']:
+#         if i['id'] == workflow_id:
+
+#             payload = {
+#                 "from_failed": True,
+#                 "jobs": job_id
+#             }
+
+#             headers = {
+#                 'content-type': "application/json",
+#                 'Circle-Token': circ_token
+#             }
+            
+#             conn.request("POST", "/api/v2/workflow/{}/rerun".format(workflow_id), payload, headers)
+            
+#             res = conn.getresponse()
+#             data = res.read()
+            
+#             print(data.decode("utf-8"))
+
+#             print("Retrying job.")
+            
+#             break
+
+#     sys.exit(0)
