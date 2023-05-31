@@ -23,7 +23,7 @@ jobs:
       - run: echo << pipeline.id >>
       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
       - run: echo $PIPELINE_ID
-      - run: python3 fail.py
+#      - run: python3 fail.py
       - run: 
           name: Rerun Workflow for Failed tests
           command: |
