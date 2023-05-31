@@ -6,6 +6,7 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.4
   newman: postman/newman@1.0.0
   android: circleci/android@2.1.2
+  orby: orb-space/orb-project@1.0.4
 
 parameters:
   author:
@@ -29,28 +30,30 @@ jobs:
         default: "<< pipeline.git.branch >>"
     steps:
       - checkout
-      - run: echo << pipeline.id >>
-      - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
-      - run: echo $PIPELINE_ID
-#      - run: python3 fail.py
-      - run: 
-          name: Rerun Workflow for Failed tests
-          command: |
-            echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
-            python3 rerun-failed.py
-          when: on_fail
-      - run: echo << pipeline.parameters.branchyy >>
-  build:
-    docker:
-      - image: cimg/node:19.9.0
-    steps:
-      - checkout
-      - run: 
-          command: |
-            sudo apt-get update
-            sudo apt-get install curl
-            curl --version
-      - run: curl --version
+#       - run: echo << pipeline.id >>
+#       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
+#       - run: echo $PIPELINE_ID
+# #      - run: python3 fail.py
+#       - run: 
+#           name: Rerun Workflow for Failed tests
+#           command: |
+#             echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
+#             python3 rerun-failed.py
+#           when: on_fail
+#       - run: echo << pipeline.parameters.branchyy >>
+      - orby/greet:
+          to: << pipeline.git.branch >>
+  # build:
+  #   docker:
+  #     - image: cimg/node:19.9.0
+  #   steps:
+  #     - checkout
+  #     - run: 
+  #         command: |
+  #           sudo apt-get update
+  #           sudo apt-get install curl
+  #           curl --version
+  #     - run: curl --version
 
 
 workflows:
