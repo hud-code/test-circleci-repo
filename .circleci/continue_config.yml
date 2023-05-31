@@ -57,9 +57,9 @@ jobs:
 
 
 workflows:
-  test:
+  work-it-flow:
     jobs:
       - test
-      - build
+      # - build
 
 # VS Code Extensi son Version: 1.5.1
