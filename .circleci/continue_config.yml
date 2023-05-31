@@ -11,9 +11,7 @@ parameters:
   author:
     type: string
     default: "not_username"
-  branchy:
-    type: string
-    default: << pipeline.git.branch >>
+
 
 jobs:
   test:
@@ -22,6 +20,10 @@ jobs:
         auth:
           username: $DOCKER_USERNAME
           password: $DOCKER_PASSWORD
+    parameters:
+      branchy:
+        type: string
+        default: << pipeline.git.branch >>
     steps:
       - checkout
       - run: echo << pipeline.id >>
