@@ -13,7 +13,7 @@ parameters:
     default: "not_username"
   branchy:
     type: string
-    default: <<pipeline.git.branch>>
+    default: << pipeline.git.branch >>
 
 jobs:
   test:
