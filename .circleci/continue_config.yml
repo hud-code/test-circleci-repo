@@ -17,10 +17,11 @@ parameters:
 
 jobs:
   test:
-    executor:
-      name: android/android-machine
-      resource-class: large
-      tag: 2022.08.1
+    docker:
+      - image: cimg/node:17.1.0
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
     steps:
       - checkout
       - run: echo << pipeline.id >>
@@ -33,7 +34,7 @@ jobs:
             echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
             python3 rerun-failed.py
           when: on_fail
-      - run: echo << parameters.branchy >>
+      - run: echo << parameter.branchy >>
   build:
     docker:
       - image: cimg/node:19.9.0
