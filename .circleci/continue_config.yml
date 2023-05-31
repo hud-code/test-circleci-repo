@@ -23,7 +23,7 @@ jobs:
     parameters:
       branchy:
         type: string
-        default: ${<< pipeline.git.branch >>}
+        default: "<< pipeline.git.branch >>"
     steps:
       - checkout
       - run: echo << pipeline.id >>
