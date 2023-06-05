@@ -31,8 +31,7 @@ jobs:
     steps:
       - setup_remote_docker:
           docker_layer_caching: false
-      - run: ssh remote-docker \ "docker ps"
-      - run: ssh remote-docker "docker ps"
+      - run: docker ps
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
 #       - run: echo $PIPELINE_ID
