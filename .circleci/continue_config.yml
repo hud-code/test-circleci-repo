@@ -29,7 +29,10 @@ jobs:
         type: string
         default: "<< pipeline.git.branch >>"
     steps:
-      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run: ssh remote-docker \ "docker ps"
+      - run: ssh remote-docker "docker ps"
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
 #       - run: echo $PIPELINE_ID
@@ -41,8 +44,8 @@ jobs:
 #             python3 rerun-failed.py
 #           when: on_fail
 #       - run: echo << pipeline.parameters.branchyy >>
-      - orby/greet:
-          to: <<pipeline.git.branch>>
+      # - orby/greet:
+      #     to: <<pipeline.git.branch>>
   # build:
   #   docker:
   #     - image: cimg/node:19.9.0
