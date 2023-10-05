@@ -32,6 +32,18 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
       - run: docker ps
+  test_windows:
+    machine:
+      image: 'windows-server-2019-vs2019:2023.08.2'
+    steps:
+      - run:
+          name: Download WiX Toolset 
+          command: |
+            $url = "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe"
+            $file = "$pwd\wix311.exe"
+            $wc = New-Object System.Net.WebClient
+            $wc.DownloadFile( $url, $file );
+            Start-Process -Wait -FilePath "wix311.exe" -Argument "/silent" -PassThru
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
 #       - run: echo $PIPELINE_ID
