@@ -34,7 +34,8 @@ jobs:
       - run: docker ps
   test_windows:
     machine:
-      image: 'windows-server-2019-vs2019:2023.08.1'
+      image: windows-server-2019-vs2019:2023.08.1
+    resource_class: medium
     steps:
       - run:
           name: Download WiX Toolset 
