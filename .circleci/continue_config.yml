@@ -18,7 +18,7 @@ parameters:
 
 
 jobs:
-  test:
+  test_docker:
     docker:
       - image: cimg/node:17.1.0
         auth:
@@ -30,19 +30,12 @@ jobs:
         default: "<< pipeline.git.branch >>"
     steps:
       - run: echo "${AWS_ECR_ACCOUNT_URL}/carbonhood-frontend:${CIRCLE_BUILD_NUM}"
-  # test_windows:
-  #   machine:
-  #     image: windows-server-2019-vs2019:2023.08.1
-  #   resource_class: medium
-  #   steps:
-  #     - run:
-  #         name: Download WiX Toolset 
-  #         command: |
-  #           $url = "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe"
-  #           $file = "$pwd\wix311.exe"
-  #           $wc = New-Object System.Net.WebClient
-  #           $wc.DownloadFile( $url, $file );
-  #           Start-Process -Wait -FilePath "wix311.exe" -Argument "/silent" -PassThru
+  test_machine:
+    machine:
+      image: ubuntu-2004:202107-02
+    resource_class: medium
+    steps:
+      - run: apt list --installed
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
 #       - run: echo $PIPELINE_ID
@@ -72,8 +65,8 @@ jobs:
 workflows:
   work-it-flow:
     jobs:
-      - test
-      # - test_windows
+      - test_docker
+      - test_machine
       # - build
 
 # VS Code Extensi son Version: 1.5.1
