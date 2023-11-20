@@ -17,7 +17,7 @@ executors:
     
   second-executor:
     docker:
-      -image: cimg/node:21.2.0
+      - image: cimg/node:21.2.0
 
 
 jobs:
