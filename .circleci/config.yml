@@ -5,6 +5,25 @@ setup: true
 orbs:
   continuation: circleci/continuation@0.1
 
+parameters:
+  image-name:
+    type: string
+    default: "cimg/node:21.2.0"
+
+jobs:
+  test_docker:
+    docker:
+      - image: << pipeline.parameters.image-name >>
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    parameters:
+      branchy:
+        type: string
+        default: "<< pipeline.git.branch >>"
+    steps:
+      - run: echo "this image is " << pipeline.parameters.image-name >>
+
 workflows:
   setup_workflow:
     jobs:
@@ -15,6 +34,9 @@ workflows:
             - run:
                 command: |
                   echo '{ "author": "'$CIRCLE_USERNAME'" }' >> /home/circleci/parameters.json 
+  test-image-workflow:
+    jobs:
+      - test_docker
 # < we can't directly insert the env var into the parameters value
 
 
