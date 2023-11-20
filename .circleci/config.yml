@@ -6,23 +6,25 @@ orbs:
   continuation: circleci/continuation@0.1
 
 parameters:
-  image-name:
+  executor-name:
     type: string
-    default: "cimg/node:21.2.0"
+    default: "first-executor"
+
+executors:
+  first-executor:
+    docker:
+      - image: cimg/ruby:3.0.3-browsers
+    
+  second-executor:
+    docker:
+      -image: cimg/node:21.2.0
+
 
 jobs:
   test_docker:
-    docker:
-      - image: << pipeline.parameters.image-name >>
-        auth:
-          username: $DOCKER_USERNAME
-          password: $DOCKER_PASSWORD
-    parameters:
-      branchy:
-        type: string
-        default: "<< pipeline.git.branch >>"
+    executor: << pipeline.parameters.executor-name >>
     steps:
-      - run: echo "this image is " << pipeline.parameters.image-name >>
+      - run: echo "this executor is " << pipeline.parameters.executor-name >>
 
 workflows:
   setup_workflow:
@@ -41,6 +43,10 @@ workflows:
 
 
 # ################################################# STORAGE ###########################################################
+
+        # auth:
+        #   username: $DOCKER_USERNAME
+        #   password: $DOCKER_PASSWORD
 
 # version: 2.1
 # jobs:
