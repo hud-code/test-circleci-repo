@@ -34,8 +34,6 @@ workflows:
             - run:
                 command: |
                   echo '{ "author": "'$CIRCLE_USERNAME'" }' >> /home/circleci/parameters.json 
-  test-image-workflow:
-    jobs:
       - test_docker
 # < we can't directly insert the env var into the parameters value
 
