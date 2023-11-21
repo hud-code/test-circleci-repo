@@ -4,6 +4,7 @@ setup: true
 
 orbs:
   continuation: circleci/continuation@0.1
+  orby: orb-space/orb-project@1.0.4
 
 parameters:
   executor-name:
@@ -25,6 +26,8 @@ jobs:
     executor: << pipeline.parameters.executor-name >>
     steps:
       - run: echo "this executor is " << pipeline.parameters.executor-name >>
+      - orby/greet:
+          to: << pipeline.parameters.executor-name >>
 
 workflows:
   setup_workflow:
