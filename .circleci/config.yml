@@ -46,10 +46,10 @@ workflows:
                 command: |
                   echo '{ "author": "'$CIRCLE_USERNAME'" }' >> /home/circleci/parameters.json 
       - test_docker
-  when:
-    and:
-      - not: << pipeline.git.tag >>
-      - << pipeline.parameters.trigger >>
+    when:
+      and:
+        - not: << pipeline.git.tag >>
+        - << pipeline.parameters.trigger >>
 # < we can't directly insert the env var into the parameters value
 
 
