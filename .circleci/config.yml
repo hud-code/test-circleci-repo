@@ -10,6 +10,10 @@ parameters:
   executor-name:
     type: string
     default: "first-executor"
+  
+  trigger:
+    type: boolean
+    default: true
 
 executors:
   first-executor:
@@ -19,6 +23,8 @@ executors:
   second-executor:
     docker:
       - image: cimg/node:21.2.0
+
+
 
 
 jobs:
@@ -40,6 +46,10 @@ workflows:
                 command: |
                   echo '{ "author": "'$CIRCLE_USERNAME'" }' >> /home/circleci/parameters.json 
       - test_docker
+  when:
+    and:
+      - not: << pipeline.git.tag >>
+      - << pipeline.parameters.trigger >>
 # < we can't directly insert the env var into the parameters value
 
 
