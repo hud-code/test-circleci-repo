@@ -13,7 +13,7 @@ parameters:
   
   trigger:
     type: boolean
-    default: true
+    default: false
 
 executors:
   first-executor:
