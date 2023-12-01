@@ -14,7 +14,7 @@ jobs:
   my_job:
     executor: macos-build
     steps:
-      - jq/install
+      #- jq/install
       - run: 
           name: "Basic command"
           command: |
