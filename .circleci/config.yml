@@ -19,6 +19,7 @@ jobs:
           name: "Basic command"
           command: |
               echo "Hello, World"
+      - 
 
 workflows:
   every_commit_workflow:
