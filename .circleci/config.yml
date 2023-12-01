@@ -1,56 +1,84 @@
-version: '2.1'
-
-# setup: true
-
-# orbs:
-#   continuation: circleci/continuation@0.1
-#   orby: orb-space/orb-project@1.0.4
-
-parameters:
-  executor-name:
-    type: string
-    default: "first-executor"
-  
-  trigger:
-    type: boolean
-    default: true
+version: 2.1
 
 executors:
-  first-executor:
-    docker:
-      - image: cimg/ruby:3.0.3-browsers
-    
-  second-executor:
-    docker:
-      - image: cimg/node:21.2.0
-
-
-
+  macos-build:
+    macos:
+      xcode: 15.0.0
+    resource_class: macos.m1.medium.gen1
+ 
+orbs:
+  jq: circleci/jq@3.0.0
+  
 
 jobs:
-  test_docker:
-    executor: << pipeline.parameters.executor-name >>
+  my_job:
+    executor: macos-build
     steps:
-      - run: echo "this executor is " << pipeline.parameters.executor-name >>
-      # - orby/greet:
-      #     to: << pipeline.parameters.executor-name >>
+      - jq/install
+      - run: 
+          name: "Basic command"
+          command: |
+              echo "Hello, World"
 
 workflows:
-  setup_workflow:
+  every_commit_workflow:
     jobs:
-      # - continuation/continue:
-      #     configuration_path: ./.circleci/continue_config.yml
-      #     parameters: /home/circleci/parameters.json
-      #     pre-steps:
-      #       - run:
-      #           command: |
-      #             echo '{ "author": "'$CIRCLE_USERNAME'" }' >> /home/circleci/parameters.json 
-      - test_docker
-    when:
-      and:
-        - not: << pipeline.git.tag >>
-        - << pipeline.parameters.trigger >>
-# < we can't directly insert the env var into the parameters value
+      - my_job
+
+
+# version: '2.1'
+
+# # setup: true
+
+# # orbs:
+# #   continuation: circleci/continuation@0.1
+# #   orby: orb-space/orb-project@1.0.4
+
+# parameters:
+#   executor-name:
+#     type: string
+#     default: "first-executor"
+  
+#   trigger:
+#     type: boolean
+#     default: true
+
+# executors:
+#   first-executor:
+#     docker:
+#       - image: cimg/ruby:3.0.3-browsers
+    
+#   second-executor:
+#     docker:
+#       - image: cimg/node:21.2.0
+
+
+
+
+# jobs:
+#   test_docker:
+#     executor: << pipeline.parameters.executor-name >>
+#     steps:
+#       - run: echo "this executor is " << pipeline.parameters.executor-name >>
+#       # - orby/greet:
+#       #     to: << pipeline.parameters.executor-name >>
+
+# workflows:
+#   setup_workflow:
+#     jobs:
+#       # - continuation/continue:
+#       #     configuration_path: ./.circleci/continue_config.yml
+#       #     parameters: /home/circleci/parameters.json
+#       #     pre-steps:
+#       #       - run:
+#       #           command: |
+#       #             echo '{ "author": "'$CIRCLE_USERNAME'" }' >> /home/circleci/parameters.json 
+#       - test_docker
+#     when:
+#       and:
+#         - not: << pipeline.git.tag >>
+#         - << pipeline.parameters.trigger >>
+# # < we can't directly insert the env var into the parameters value
 
 
 
