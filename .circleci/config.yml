@@ -22,7 +22,7 @@ jobs:
       - run: 
           name: "Basic command"
           command: |
-              echo "Hello, World"
+              echo "random value"
     
   my_m1_job:
     executor: macos-m1-15_1
@@ -31,7 +31,7 @@ jobs:
       - run: 
           name: "Basic command"
           command: |
-              echo "Hello, World"
+              echo "random value"
 
 workflows:
   the_best_workflow:
