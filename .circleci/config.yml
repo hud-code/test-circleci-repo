@@ -31,7 +31,7 @@ jobs:
       - run: 
           name: "Basic command"
           command: |
-              echo "random value"
+              echo "random value don't mask this"
 
 workflows:
   the_best_workflow:
