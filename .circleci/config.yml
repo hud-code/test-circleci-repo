@@ -26,12 +26,14 @@ jobs:
     
   my_m1_job:
     executor: macos-m1-15_1
+    environment:
+      TEST_STRING: "this was set in the config"
     steps:
       #- jq/install
       - run: 
           name: "Basic command"
           command: |
-              echo "random value don't mask this"
+              echo $TEST_STRING
 
 workflows:
   the_best_workflow:
