@@ -22,7 +22,7 @@ jobs:
       - run: 
           name: "Basic command"
           command: |
-              echo "random value"
+              echo "random value number 8"
     
   my_m1_job:
     executor: macos-m1-15_1
