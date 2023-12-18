@@ -12,29 +12,10 @@ executors:
  
 orbs:
   jq: circleci/jq@3.0.0
+  path-filtering: circleci/path-filtering@1.0.0
   
 
 jobs:
-  my_intel_job:
-    executor: macos-intel-15_1
-    steps:
-      #- jq/install
-      - run: 
-          name: "Basic command"
-          command: |
-              echo "random value number 8"
-    
-  my_m1_job:
-    executor: macos-m1-15_1
-    environment:
-      TEST_STRING: "this was set in the config"
-    steps:
-      #- jq/install
-      - run: 
-          name: "Basic command"
-          command: |
-              echo $TEST_STRING
-
   test_git:
     docker:
       - image: cimg/node:17.1.0
@@ -44,12 +25,15 @@ jobs:
     steps:
       - checkout
       - run: git diff-tree --no-commit-id --name-only << pipeline.git.revision >> -r
+      - path-filtering/filter:
+          base-revision: << pipeline.git.base_revision >>
+          config-path: .circleci/continue_config.yml
+          mapping: |
+            rando_file/.* branchy "omg this worked"
 
 workflows:
   the_best_workflow:
     jobs:
-      - my_intel_job
-      - my_m1_job
       - test_git
 
 
@@ -111,6 +95,26 @@ workflows:
 
 
 # ################################################# STORAGE ###########################################################
+
+  # my_intel_job:
+  #   executor: macos-intel-15_1
+  #   steps:
+  #     #- jq/install
+  #     - run: 
+  #         name: "Basic command"
+  #         command: |
+  #             echo "random value number 8"
+    
+  # my_m1_job:
+  #   executor: macos-m1-15_1
+  #   environment:
+  #     TEST_STRING: "this was set in the config"
+  #   steps:
+  #     #- jq/install
+  #     - run: 
+  #         name: "Basic command"
+  #         command: |
+  #             echo $TEST_STRING
 
         # auth:
         #   username: $DOCKER_USERNAME

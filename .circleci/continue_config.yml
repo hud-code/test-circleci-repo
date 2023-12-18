@@ -18,25 +18,15 @@ parameters:
 
 
 jobs:
-  test_docker:
+  test_path_filtering:
     docker:
       - image: cimg/node:17.1.0
         auth:
           username: $DOCKER_USERNAME
           password: $DOCKER_PASSWORD
-    parameters:
-      branchy:
-        type: string
-        default: "<< pipeline.git.branch >>"
     steps:
-      - run: echo "${AWS_ECR_ACCOUNT_URL}/carbonhood-frontend:${CIRCLE_BUILD_NUM}"
-  test_machine:
-    machine:
-      image: ubuntu-2004:202107-02
-    resource_class: medium
-    steps:
-      - run: apt list --installed
-      - run: docker version
+      - run: echo << pipeline.parameters.branchyy >>
+
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
 #       - run: echo $PIPELINE_ID
@@ -66,8 +56,6 @@ jobs:
 workflows:
   work-it-flow:
     jobs:
-      - test_docker
-      - test_machine
-      # - build
+      - test_path_filtering
 
 # VS Code Extensi son Version: 1.5.1
