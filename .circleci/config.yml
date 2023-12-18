@@ -35,6 +35,16 @@ jobs:
           command: |
               echo $TEST_STRING
 
+   followup:
+    docker:
+      - image: cimg/node:17.1.0
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - run: git diff-tree --no-commit-id --name-only << pipeline.git.revision >> -r
+
 workflows:
   the_best_workflow:
     jobs:
