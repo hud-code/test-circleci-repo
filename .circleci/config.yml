@@ -26,7 +26,7 @@ jobs:
       - checkout
       - run: git diff-tree --no-commit-id --name-only << pipeline.git.revision >> -r
       - path-filtering/filter:
-          base-revision: << pipeline.git.base_revision >>
+          base-revision: main
           config-path: .circleci/continue_config.yml
           mapping: |
             rando_file/.* branchy "omg this worked"
