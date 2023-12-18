@@ -1,5 +1,7 @@
 version: 2.1
 
+setup: true
+
 executors:
   macos-m1-15_1:
     macos:
