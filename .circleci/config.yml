@@ -36,7 +36,7 @@ workflows:
           base-revision: main
           config-path: .circleci/continue_config.yml
           mapping: |
-            rando_file/.* branchy true
+            rando_file/.* branchyy true
 
 
 # version: '2.1'
