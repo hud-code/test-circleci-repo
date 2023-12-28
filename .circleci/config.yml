@@ -28,6 +28,12 @@ jobs:
       - checkout
       - run: git diff-tree --no-commit-id --name-only << pipeline.git.revision >> -r
 
+  test_machine:
+    machine: 
+      image: ubuntu-2204:2023.10.1
+    steps:
+      - run: echo hello-
+
 
 workflows:
   the_best_workflow:

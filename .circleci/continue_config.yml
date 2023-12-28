@@ -27,6 +27,12 @@ jobs:
     steps:
       - run: echo << pipeline.parameters.branchyy >>
 
+  test_machine:
+    machine: 
+      image: ubuntu-2204:2023.10.1
+    steps:
+      - run: echo hello-
+
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
 #       - run: echo $PIPELINE_ID
@@ -57,5 +63,6 @@ workflows:
   work-it-flow:
     jobs:
       - test_path_filtering
+      - test_machine
 
 # VS Code Extensi son Version: 1.5.1
