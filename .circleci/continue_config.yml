@@ -31,7 +31,7 @@ jobs:
     machine: 
       image: ubuntu-2204:2023.10.1
     steps:
-      - run: echo hello-
+      - run: echo hello~
 
 #       - run: echo << pipeline.id >>
 #       - run: echo 'export PIPELINE_ID=<< pipeline.id >>' >> "$BASH_ENV"
