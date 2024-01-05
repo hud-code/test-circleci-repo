@@ -26,6 +26,7 @@ jobs:
           password: $DOCKER_PASSWORD
     steps:
       - run: echo << pipeline.parameters.branchyy >>
+      - run: echo << pipeline.parameters.pipeline_id >>
 
   test_machine:
     machine: 
