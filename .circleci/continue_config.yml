@@ -20,7 +20,7 @@ parameters:
 jobs:
   test_path_filtering:
     docker:
-      - image: hashicorp/terraform:1.5
+      - image: hashicorp/terraform:1.6
         auth:
           username: $DOCKER_USERNAME
           password: $DOCKER_PASSWORD
