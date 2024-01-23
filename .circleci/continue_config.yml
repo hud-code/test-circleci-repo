@@ -20,13 +20,12 @@ parameters:
 jobs:
   test_path_filtering:
     docker:
-      - image: cimg/node:17.1.0
+      - image: hashicorp/terraform:1.5
         auth:
           username: $DOCKER_USERNAME
           password: $DOCKER_PASSWORD
     steps:
-      - run: echo << pipeline.parameters.branchyy >>
-      - run: echo << pipeline.id >>
+      - run: cat /etc/alpine-release
 
   test_machine:
     machine: 
